@@ -26,4 +26,18 @@
             //Assert
             $this->assertEquals($type, $result);
         }
+
+        function test_save()
+        {
+            //Arrange
+            $type = "Dog";
+            $test_type = new Type($type, 1);
+            $test_type->save();
+
+            //Act
+            $result = Type::getAll();
+
+            //Assert
+            $this->assertEquals($test_type, $result[0]);
+        }
     }
