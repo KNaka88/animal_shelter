@@ -21,7 +21,17 @@
 
     $app->get("/", function() use ($app) {
 
-        return "Hello World";
+        return $app['twig']->render("index.html.twig");
     });
+
+    $app->post("/types", function() use ($app) {
+
+        $animal_type = $_POST['type'];
+        $new_type = new Type($animal_type);
+        $new_type->save();
+        return $app['twig']->render("types.html.twig", array("types"=>Type::getAll()));
+
+    });
+
 
     return $app;

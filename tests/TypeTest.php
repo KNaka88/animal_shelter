@@ -53,6 +53,25 @@
              $this->assertEquals(true, is_numeric($result[0]->getId()));
         }
 
+        function test_save()
+        {
+            //Arrange
+            $type = "Dog";
+            $test_type = new Type($type); //1
+            $test_type->save();
+
+            $type2 = "Cat";
+            $test_type2 = new Type($type2, 2); //2
+            $test_type2->save();
+
+
+            //Act
+            $result = Type::getAll();
+
+            //Assert
+             $this->assertCount(2,$result);
+        }
+
         function test_deleteAll()
         {
             //Arrange
