@@ -14,6 +14,13 @@
     class TypeTest extends PHPUnit_Framework_TestCase
     {
 
+
+        protected function tearDown()
+        {
+          Type::deleteAll();
+        }
+
+
         function test_createType()
         {
             //Arrange
@@ -27,17 +34,40 @@
             $this->assertEquals($type, $result);
         }
 
-        function test_save()
+        function test_getId()
         {
             //Arrange
             $type = "Dog";
-            $test_type = new Type($type, 1);
+            $test_type = new Type($type); //1
             $test_type->save();
+
+            $type2 = "Cat";
+            $test_type2 = new Type($type2, 2); //2
+            $test_type2->save();
+
 
             //Act
             $result = Type::getAll();
 
             //Assert
-            $this->assertEquals($test_type, $result[0]);
+             $this->assertEquals(true, is_numeric($result[0]->getId()));
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $type = "Dog";
+            $type2 = "Cat";
+            $test_Type = new Type($type);
+            $test_Type->save();
+            $test_Type2 = new Type($type2);
+            $test_Type2->save();
+
+            //Act
+            Type::deleteAll();
+            $result = Type::getAll();
+
+            //Assert
+            $this->assertEquals( [], $result);
         }
     }

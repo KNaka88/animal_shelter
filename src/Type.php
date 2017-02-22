@@ -41,8 +41,9 @@
             return $types;
         }
 
-
-
-
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM animal_type;");
+        }
 
     }
